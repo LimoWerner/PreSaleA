@@ -46,11 +46,11 @@ export const mintGift = async (account, numberOfTokens, proof) => {
   return result;
 };
 
-export const mintWhitelist = async (account, proof) => {
+export const mintWhitelist = async (account,numberOfTokens, proof) => {
   console.log('minting whitelist...');
-  const amount = '0.001';
+  const amount = (numberOfTokens * 0.001).toString();
     const amountToWei = web3.utils.toWei(amount, 'ether');
-  const result = sampleNFT.methods.mintWhitelist(proof).send({ from: account, value: amountToWei }).then((result) => {
+  const result = sampleNFT.methods.mintWhitelist(numberOfTokens,proof).send({ from: account, value: amountToWei }).then((result) => {
     console.log(`✅ Check out your transaction on Etherscan: https://etherscan.io/tx/` + result);
       return {
         success: true,
