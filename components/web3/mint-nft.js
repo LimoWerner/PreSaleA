@@ -156,9 +156,9 @@ const MintNFT = () => {
               title={'Public Mint'}
               description={'0.002 ETH'}
               canMint={active}
-             canMint={whitelistClaimable}  
+             canMint={giftClaimable}
               mintStatus={publicMintStatus}
-            
+            mintStatus={whitelistMintStatus}
               showNumToMint={true}
               setNumToMint={setNumToMint}
               action={onPublicMint}
