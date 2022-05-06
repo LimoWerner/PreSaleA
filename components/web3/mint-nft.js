@@ -94,7 +94,7 @@ const MintNFT = () => {
     async function validateClaim() {
       const amount = '0.001';
       const amountToWei = web3.utils.toWei(amount, 'ether');
-      sampleNFT.methods.mintWhitelist(whitelistProof).call({ from: account, value: amountToWei }).then(() => {
+      sampleNFT.methods.mintWhitelist(numToMint,whitelistProof).call({ from: account, value: amountToWei }).then(() => {
         setWhitelistClaimable(CLAIMABLE);
       }).catch((err) => {
         if (err.toString().includes('claimed')) { setWhitelistClaimable(ALREADY_CLAIMED)}
