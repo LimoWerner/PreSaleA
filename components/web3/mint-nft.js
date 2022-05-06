@@ -146,6 +146,8 @@ const MintNFT = () => {
               description={'Cost: 0.001 ETH'}
               canMint={whitelistClaimable}
               mintStatus={whitelistMintStatus}
+              showNumToMint={true}
+              setNumToMint={setNumToMint}
               action={onMintWhitelist}
             />
           </Grid>
@@ -154,7 +156,9 @@ const MintNFT = () => {
               title={'Public Mint'}
               description={'0.002 ETH'}
               canMint={active}
+             canMint={whitelistClaimable}  
               mintStatus={publicMintStatus}
+            
               showNumToMint={true}
               setNumToMint={setNumToMint}
               action={onPublicMint}
