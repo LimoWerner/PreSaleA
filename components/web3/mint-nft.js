@@ -1,7 +1,7 @@
 import { Grid, Stack } from '@mui/material';
 import { useWeb3React } from '@web3-react/core';
 import { useEffect, useState } from 'react';
-import { mintGift, mintPublic, mintWhitelist, sampleNFT } from '@pages/utils/_web3';
+import {  mintPublic, mintWhitelist, sampleNFT } from '@pages/utils/_web3';
 import MintNFTCard from './mint-nft-card';
 import useSWR from 'swr';
 import Web3 from 'web3';
@@ -16,62 +16,16 @@ const MintNFT = () => {
   const fetcher = (url) => fetch(url).then((res) => res.json());
   const { active, account, chainId } = useWeb3React();
 
-  const [giftClaimable, setGiftClaimable] = useState(NOT_CLAIMABLE);
   const [whitelistClaimable, setWhitelistClaimable] = useState(NOT_CLAIMABLE);
   const [alreadyClaimed, setAlreadyClaimed] = useState(false);
 
-  const [giftMintStatus, setGiftMintStatus] = useState();
+
   const [whitelistMintStatus, setWhitelistMintStatus] = useState();
   const [publicMintStatus, setPublicMintStatus] = useState();
 
   const [numToMint, setNumToMint] = useState(2);
 
-  useEffect(() => {
-    if (!active || !account) {
-      setAlreadyClaimed(false);
-      return;
-    }
-    async function checkIfClaimed() {
-      sampleNFT.methods.claimed(account).call({ from: account }).then((result) => {
-        setAlreadyClaimed(result);
-      }).catch((err) => {
-        setAlreadyClaimed(false);
-      });
-    }
-    checkIfClaimed();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account])
 
-
-  let giftProof = [];
-  let giftValid = false;
-  const giftRes = useSWR(active && account ? `/api/giftProof?address=${account}` : null, {
-    fetcher, revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false });
-  if (!giftRes.error && giftRes.data) {
-    const { proof, valid } = giftRes.data;
-    giftProof = proof;
-    giftValid = valid;
-  }
-
-  useEffect(() => {
-    if (!active || !giftValid) {
-      setGiftClaimable(NOT_CLAIMABLE);
-      return;
-    } else if (alreadyClaimed) {
-      setGiftClaimable(ALREADY_CLAIMED);
-      return;
-    }
-    async function validateClaim() {
-      sampleNFT.methods.mintGift(giftProof).call({ from: account }).then(() => {
-        setGiftClaimable(CLAIMABLE);
-      }).catch((err) => {
-        if (err.toString().includes('claimed')) { setGiftClaimable(ALREADY_CLAIMED)}
-        else { setGiftClaimable(NOT_CLAIMABLE) }
-      });
-    }
-    validateClaim();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [giftProof])
 
   let whitelistProof = [];
   let whitelistValid = false;
@@ -106,11 +60,7 @@ const MintNFT = () => {
   }, [whitelistProof])
 
 
-  const onMintGift = async () => {
-    const { success, status } = await mintGift(account, giftProof, numToMint);
-    console.log(status);
-    setGiftMintStatus(success);
-  };
+
 
   const onMintWhitelist = async () => {
     const { success, status } = await mintWhitelist(account, numToMint, whitelistProof);
@@ -127,21 +77,9 @@ const MintNFT = () => {
   return (
     <>
       <Stack id="demo">
-        <h2>Mint an NFT</h2>
-        <Grid container spacing={3} justifyContent="center" alignItems="center">
-    /*
-         <Grid item>
-            <MintNFTCard
-              title={'Gift Mint'}
-              description={'Free shit.'}
-              canMint={giftClaimable}
-              mintStatus={giftMintStatus}
-              showNumToMint={true}
-              setNumToMint={setNumToMint}
-              action={onMintGift}
-            />
-          </Grid>
-          */
+
+        <Grid container spacing={4} justifyContent="center" alignItems="center">
+
   <Grid item> 
             <MintNFTCard
               title={'Whitelist Mint'}
