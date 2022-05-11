@@ -119,7 +119,7 @@ const MintNFT = () => {
   };
 
   const onPublicMint = async () => {
-    const { success, status } = await mintPublic(account, numToMint, giftProof);
+    const { success, status } = await mintPublic(account, numToMint);
     console.log(status);
     setPublicMintStatus(success);
   };
