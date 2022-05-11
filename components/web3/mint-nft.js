@@ -92,7 +92,7 @@ const MintNFT = () => {
       return;
     }
     async function validateClaim() {
-      const amount = (numToMint * 0.001).toString();
+      const amount = (numToMint * 0.02).toString();
       const amountToWei = web3.utils.toWei(amount, 'ether');
       sampleNFT.methods.mintWhitelist(numToMint,whitelistProof).call({ from: account, value: amountToWei }).then(() => {
         setWhitelistClaimable(CLAIMABLE);
@@ -129,6 +129,7 @@ const MintNFT = () => {
       <Stack id="demo">
         <h2>Mint an NFT</h2>
         <Grid container spacing={3} justifyContent="center" alignItems="center">
+    /*
          <Grid item>
             <MintNFTCard
               title={'Gift Mint'}
@@ -140,10 +141,11 @@ const MintNFT = () => {
               action={onMintGift}
             />
           </Grid>
+          */
   <Grid item> 
             <MintNFTCard
               title={'Whitelist Mint'}
-              description={'Cost: 0.001 ETH'}
+              description={'Cost: 0.02 ETH'}
               canMint={whitelistClaimable}
               mintStatus={whitelistMintStatus}
               showNumToMint={true}
@@ -154,11 +156,9 @@ const MintNFT = () => {
           <Grid item>
             <MintNFTCard
               title={'Public Mint'}
-              description={'0.002 ETH'}
+              description={'0.03 ETH'}
               canMint={active}
-             canMint={giftClaimable}
               mintStatus={publicMintStatus}
-            mintStatus={whitelistMintStatus}
               showNumToMint={true}
               setNumToMint={setNumToMint}
               action={onPublicMint}
