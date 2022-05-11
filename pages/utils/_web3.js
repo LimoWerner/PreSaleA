@@ -48,7 +48,7 @@ export const mintGift = async (account, numberOfTokens, proof) => {
 
 export const mintWhitelist = async (account,numberOfTokens, proof) => {
   console.log('minting whitelist...');
-  const amount = (numberOfTokens * 0.001).toString();
+  const amount = (numberOfTokens * 0.02).toString();
     const amountToWei = web3.utils.toWei(amount, 'ether');
   const result = sampleNFT.methods.mintWhitelist(numberOfTokens,proof).send({ from: account, value: amountToWei }).then((result) => {
     console.log(`✅ Check out your transaction on Etherscan: https://etherscan.io/tx/` + result);
@@ -70,7 +70,7 @@ export const mintWhitelist = async (account,numberOfTokens, proof) => {
 
   export const mintPublic = async (account, numberOfTokens, proof) => {
     console.log('minting publicMint...');
-    const amount = (numberOfTokens * 0.002).toString();
+    const amount = (numberOfTokens * 0.03).toString();
     const amountToWei = web3.utils.toWei(amount, 'ether');
     const result = sampleNFT.methods.publicMint(numberOfTokens,proof).send({ from: account, value: amountToWei }).then((result) => {
       console.log(`✅ Check out your transaction on Etherscan: https://etherscan.io/tx/` + result);
