@@ -28,25 +28,7 @@ export const walletlink = new WalletLinkConnector({
   supportedChainIds: acceptedChains,
 })
 
-/*
-export const mintGift = async (account, numberOfTokens, proof) => {
-  console.log('minting gift...');
-  const amount = '0.00';
-    const amountToWei = web3.utils.toWei(amount, 'ether');
-  const result = sampleNFT.methods.mintGift(proof,numberOfTokens).send({ from: account,value: amountToWei }).then((result) => {
-      return {
-        success: true,
-        status: `✅ Check out your transaction on Etherscan: https://etherscan.io/tx/` + result
-        };
-  }).catch((err) => {
-    return {
-      success: false,
-      status: "😥 Something went wrong: " + err.message
-      }
-  });
-  return result;
-};
-*/
+
 
 export const mintWhitelist = async (account,numberOfTokens, proof) => {
   console.log('minting whitelist...');
